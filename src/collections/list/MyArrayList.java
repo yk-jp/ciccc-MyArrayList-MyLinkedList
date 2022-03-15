@@ -46,7 +46,12 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public <T> T[] toArray(T[] a) {
         // TODO: Exercise
-        return null;
+        if(a == null) return null;
+
+        for(int i = 0; i < a.length; i++) {
+            a[i] = (T)elementData[i];
+        }
+        return a;
     }
 
     @Override
@@ -153,6 +158,27 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public boolean addAll(int index, Collection<? extends E> c) {
         // TODO: Exercise
+        Object[] a = c.toArray();
+        int length = a.length;
+
+        if (length == 0) {
+            return false;
+        }
+
+        if (elementData.length < length + size) {
+            elementData = grow(length + size);
+        }
+
+        Object[] elementDataCopy = new Object[size-index];
+        System.arraycopy(elementData, index, elementDataCopy,0, size-index);
+
+        //first ele to index
+        System.arraycopy(a, 0, elementData, index, length);
+        // index to last
+        System.arraycopy(elementDataCopy, 0, elementData, size + length -1, elementDataCopy.length);
+
+        size += length;
+
         return false;
     }
 
@@ -182,7 +208,20 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public boolean retainAll(Collection<?> c) {
         // TODO: Exercise
-        return false;
+        if (c == null) {
+            throw new NullPointerException();
+        }
+
+        boolean isRemoved = false;
+
+        for (int i = 0; i < size; i++) {
+            if (!c.contains(elementData[i])) {
+                remove(elementData[i]);
+                isRemoved = true;
+            }
+        }
+
+        return isRemoved;
     }
 
     @Override
@@ -241,12 +280,23 @@ public class MyArrayList<E> implements List<E> {
     @Override
     public int indexOf(Object o) {
         // TODO: Exercise
+
+        for(int i = 0; i < size; i++) {
+            if(elementData[i].equals(o)) {
+                return i;
+            }
+        }
         return -1;
     }
 
     @Override
     public int lastIndexOf(Object o) {
         // TODO: Exercise
+        for(int i = size-1; i>=0; i--) {
+            if(elementData[i].equals(o)) {
+                return i;
+            }
+        }
         return -1;
     }
 
