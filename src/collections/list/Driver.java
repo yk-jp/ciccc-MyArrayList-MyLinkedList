@@ -5,24 +5,26 @@ import java.util.*;
 public class Driver {
     public static void main(String[] args) {
 
-        MyArrayList<Integer> list1 = new MyArrayList<Integer>();
+        MyLinkedList<Integer> myLinkedList = new MyLinkedList<>();
 
-        list1.add(1);
-        list1.add(2);
-        list1.add(3);
-        list1.add(4);
-        list1.add(5);
-        System.out.println("list1: " + list1);
+        myLinkedList.addLast(1);
+        myLinkedList.addLast(1);
+        myLinkedList.addLast(2);
+        myLinkedList.addLast(3);
+        myLinkedList.addLast(1);
+        myLinkedList.addLast(5);
+        myLinkedList.addLast(1);
+        myLinkedList.addLast(2);
 
-        MyArrayList<Integer> list2 = new MyArrayList<Integer>();
+        System.out.println(myLinkedList.toString());
 
-        list2.add(2);
-        list2.add(4);
-        list2.add(6);
-        System.out.println("list2: " + list2);
+//        System.out.println(myLinkedList.remove((Integer)2));
+//        System.out.println(myLinkedList.remove(1));
+//        System.out.println(myLinkedList.lastIndexOf(-3));
+//        System.out.println(myLinkedList.lastIndexOf(1));
+        myLinkedList.reverse();
+        System.out.println(myLinkedList.toString());
 
-        System.out.println("list1.retainAll(list2)");
-        list1.retainAll(list2);
-        System.out.println("list1: " + list1);
+
     }
 }
